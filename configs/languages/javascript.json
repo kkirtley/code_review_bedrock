@@ -1,0 +1,6 @@
+
+{
+    "valid_extensions": [".js"],
+    "excluded_directories": ["node_modules", "dist"],
+    "standards": "Task: Review the following JavaScript code for adherence to best practices..."
+}

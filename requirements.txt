@@ -1,0 +1,6 @@
+
+boto3
+tenacity
+jinja2
+tqdm
+ratelimit

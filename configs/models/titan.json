@@ -1,0 +1,6 @@
+
+{
+    "model_id": "amazon.titan-your-model-id",
+    "batch_size": 5,
+    "token_limit": 4000
+}
