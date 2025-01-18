@@ -21,5 +21,8 @@ def generate_html_report(report_content: list, output_file: str) -> None:
     """Generates an HTML report from the given report content."""
     template = Template(HTML_TEMPLATE)
     html_content = template.render(report_content=report_content)
-    with open(output_file, "w", encoding="utf-8") as file:
-        file.write(html_content)
+    try:
+        with open(output_file, "w", encoding="utf-8") as file:
+            file.write(html_content)
+    except IOError as e:
+        raise RuntimeError(f"Failed to write HTML report: {e}")

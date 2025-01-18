@@ -2,6 +2,7 @@
 from tenacity import retry, wait_fixed, stop_after_attempt
 from ratelimit import limits, sleep_and_retry
 import boto3
+import json
 
 # Initialize the Bedrock client
 bedrock = boto3.client("bedrock-runtime")
@@ -14,10 +15,11 @@ REQUESTS_PER_SECOND = 5
 @sleep_and_retry
 def invoke_model_with_retry(model_id: str, body: str) -> str:
     """Invokes the Bedrock model with retries and rate-limiting."""
+    text_config = ",{\"maxTokenCount\":8192,\"stopSequences\":[],\"temperature\":0,\"topP\":1}}"
     try:
         response = bedrock.invoke_model(
             modelId=model_id,
-            body=body,
+            body=json.dumps({"inputText": body}),
             contentType="application/json",
             accept="application/json"
         )
@@ -26,8 +28,4 @@ def invoke_model_with_retry(model_id: str, body: str) -> str:
             response_body.append(chunk.decode("utf-8"))
         return ''.join(response_body)
     except Exception as e:
-        print(f"Error invoking model: {e}")
-        return ""
-    except Exception as e:
         raise RuntimeError(f"Failed to invoke model: {e}")
-    return response["body"].read().decode("utf-8")

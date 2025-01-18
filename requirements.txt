@@ -1,6 +1,11 @@
-
 boto3
 tenacity
 jinja2
 tqdm
 ratelimit
+fastapi
+uvicorn
+pydantic
+pytest
+pytest-mock
+httpx

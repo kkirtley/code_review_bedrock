@@ -40,9 +40,10 @@ This project automates code review for multiple programming languages using Amaz
    pip install -r requirements.txt
    ```
 
-3. Set environment
+3. Set environment and activate
    ```
    python3 -m venv .venv
+   source .venv/bin/activate
    ```
 
 ### AWS Configuration
