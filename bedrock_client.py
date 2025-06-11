@@ -1,8 +1,8 @@
-# Bedrock Client Module with Rate Limiting
+""" Bedrock Client Module with Rate Limiting """
+import json
 from tenacity import retry, wait_fixed, stop_after_attempt
 from ratelimit import limits, sleep_and_retry
 import boto3
-import json
 
 # Initialize the Bedrock client
 bedrock = boto3.client("bedrock-runtime")
@@ -28,4 +28,4 @@ def invoke_model_with_retry(model_id: str, body: str) -> str:
             response_body.append(chunk.decode("utf-8"))
         return ''.join(response_body)
     except Exception as e:
-        raise RuntimeError(f"Failed to invoke model: {e}")
+        raise RuntimeError(f"Failed to invoke model: {e}") from e

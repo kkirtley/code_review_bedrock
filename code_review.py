@@ -35,7 +35,7 @@ def main():
     for language in args.languages:
         config_file = f"configs/{language.lower()}.json"
         if not os.path.exists(config_file):
-            logging.warning(f"No configuration found for {language}. Skipping.")
+            logging.warning("No configuration found for %s. Skipping.", (language,))
             continue
 
         with open(config_file, "r") as f:

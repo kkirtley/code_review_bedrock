@@ -1,3 +1,4 @@
+"""Module for generating HTML reports from code review data."""
 from jinja2 import Template
 
 HTML_TEMPLATE = """
@@ -9,10 +10,12 @@ HTML_TEMPLATE = """
     <title>Report</title>
 </head>
 <body>
+    <h1>Code Review Report</h1>
+    <ul>
     {% for item in report_content %}
-    <h2>{{ item.file }}</h2>
-    <pre>{{ item.content }}</pre>
+        <li>{{ item }}</li>
     {% endfor %}
+    </ul>
 </body>
 </html>
 """
@@ -25,4 +28,4 @@ def generate_html_report(report_content: list, output_file: str) -> None:
         with open(output_file, "w", encoding="utf-8") as file:
             file.write(html_content)
     except IOError as e:
-        raise RuntimeError(f"Failed to write HTML report: {e}")
+        raise RuntimeError(f'Failed to write HTML report: {e}') from e
