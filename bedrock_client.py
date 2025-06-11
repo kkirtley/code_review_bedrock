@@ -26,6 +26,7 @@ def invoke_model_with_retry(model_id: str, body: str) -> str:
         response_body = []
         for chunk in response["body"].iter_chunks():
             response_body.append(chunk.decode("utf-8"))
+        print(body)
         return ''.join(response_body)
     except Exception as e:
         raise RuntimeError(f"Failed to invoke model: {e}") from e

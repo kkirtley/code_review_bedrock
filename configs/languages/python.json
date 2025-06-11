@@ -1,5 +1,6 @@
 {
     "valid_extensions": [".py", ".md", ".txt", ".json"],
     "excluded_directories": ["__pycache__", "venv", "build"],
-    "standards": "Task: Review the following Python code for adherence to best practices..."
+    "standards": "Task: Review the following Python code for adherence to best practices...",
+    "model_id": "gpt-4-vision-preview"
 }

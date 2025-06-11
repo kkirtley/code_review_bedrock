@@ -2,5 +2,6 @@
 {
     "valid_extensions": [".js", ".md", ".json", ".ts"],
     "excluded_directories": ["node_modules", "dist"],
-    "standards": "Task: Review the following JavaScript code for adherence to best practices..."
+    "standards": "Task: Review the following JavaScript code for adherence to best practices...",
+    "model_id": "gpt-4-vision-preview"
 }
