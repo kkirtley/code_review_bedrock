@@ -8,9 +8,10 @@
     Returns:
         _type_: _description_
     """
-from bedrock_client import invoke_model_with_retry
 from fastapi import FastAPI, HTTPException
 from pydantic import BaseModel
+from bedrock_client import invoke_model_with_retry
+
 
 app = FastAPI()
 
