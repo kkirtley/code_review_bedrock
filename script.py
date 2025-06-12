@@ -31,29 +31,29 @@ def main():
     for language in args.languages:
         config_file = f"configs/languages/{language.lower()}.json"
         if not os.path.exists(config_file):
-            logging.warning(f"No configuration found for {language}. Skipping.")
+            logging.warning("No configuration found for %s. Skipping.", language)
             continue
 
         with open(config_file, "r") as f:
             config = json.load(f)
 
         if "model_id" not in config:
-            logging.error(f"'model_id' not found in config file: {config_file}. Skipping {language}.")
+            logging.error("'model_id' not found in config file: %s. Skipping %s.", config_file, language)
             continue
 
         valid_files = list(collect_valid_files(args.project_dir, config["valid_extensions"], config["excluded_directories"]))
         if not valid_files:
-            logging.warning(f"No valid files found for {language}. Skipping.")
+            logging.warning("No valid files found for %s. Skipping.", language)
             continue
 
         # Read file contents before submitting to the model
         file_contents = []
         for file_path in valid_files:
             try:
-                with open(file_path, "r") as f:
+                with open(file_path, "r", encoding="utf-8") as f:
                     file_contents.append(f.read())
-            except Exception as e:
-                logging.warning(f"Could not read {file_path}: {e}")
+            except (OSError, IOError, UnicodeDecodeError) as e:
+                logging.warning("Could not read %s: %s", file_path, e)
 
         with ThreadPoolExecutor() as executor:
             futures = [executor.submit(invoke_model_with_retry, config["model_id"], content) for content in file_contents]
@@ -61,10 +61,10 @@ def main():
                 report_content.append(future.result())
 
     try:
-        with open(os.path.join(output_dir, "report.json"), "w") as f:
+        with open(os.path.join(output_dir, "report.json"), "w", encoding="utf-8") as f:
             json.dump(report_content, f, indent=4)
     except IOError as e:
-        logging.error(f"Failed to write report: {e}")
+        logging.error("Failed to write report: %s", e)
 
 if __name__ == "__main__":
     main()
